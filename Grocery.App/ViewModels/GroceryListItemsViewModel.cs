@@ -39,7 +39,7 @@ namespace Grocery.App.ViewModels
             foreach (var product in _productService.GetAll())
             {
                 //Control if product is on stock and not already in the grocery list
-                if (product.Stock > 1 && !MyGroceryListItems.Any(gli => gli.ProductId == product.Id))
+                if (product.Stock > 0 && !MyGroceryListItems.Any(gli => gli.ProductId == product.Id))
                 {
                     AvailableProducts.Add(product);
                 }
@@ -53,7 +53,7 @@ namespace Grocery.App.ViewModels
         }
 
         [RelayCommand]
-        public async Task ChangeColor()
+        public async Task ChangeColor() 
         {
             Dictionary<string, object> paramater = new() { { nameof(GroceryList), GroceryList } };
             await Shell.Current.GoToAsync($"{nameof(ChangeColorView)}?Name={GroceryList.Name}", true, paramater);
